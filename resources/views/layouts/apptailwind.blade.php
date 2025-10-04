@@ -64,7 +64,7 @@
             <a class="text-gray-900 bg-blue-100 hover:bg-blue-300 rounded-lg px-4 py-2 text-sm font-medium" href="/login">Admin Login</a>
           </div>
           </div>
-          <div id="mobile-menu" class="mobile-menu md:hidden bg-white shadow-lg rounded-lg mt-1 p-1">
+          <div id="mobile-menu" class="mobile-menu md:hidden bg-white shadow-lg rounded-lg">
             <a class="block text-gray-800 hover:bg-gray-200 px-4 py-2 text-sm font-medium rounded-md" href="/laporan/form">Buat Laporan</a>
             <a class="block text-gray-800 hover:bg-gray-200 px-4 py-2 text-sm font-medium rounded-md mt-2" href="/laporan/status">Cek Status Laporan</a>
             <a class="block text-gray-800 hover:bg-gray-200 px-4 py-2 text-sm font-medium rounded-md mt-2" href="/login">Admin Login</a>
