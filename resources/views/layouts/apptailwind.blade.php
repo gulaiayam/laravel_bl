@@ -52,7 +52,7 @@
           </div>
 
            <div class="md:hidden">
-            <button id="hamburger-btn" class="hamburger focus:outline-none text-gray-800 flex flex-col w-3 h-3 justify-between">
+            <button id="hamburger-btn" class="hamburger focus:outline-none text-gray-800 flex flex-col w-3 h-3 justify-between px-6">
               <span class="hamburger-line w-6 h-0.5 bg-gray-800 rounded"></span>
               <span class="hamburger-line w-6 h-0.5 bg-gray-800 rounded"></span>
               <span class="hamburger-line w-6 h-0.5 bg-gray-800 rounded"></span>
