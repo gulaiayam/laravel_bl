@@ -8,12 +8,42 @@
   <script src="https://cdn.tailwindcss.com"></script>
   @yield('css')
 
+  <style>
+        .mobile-menu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+        
+        .mobile-menu.open {
+            max-height: 200px;
+        }
+        
+        /* icon transforming*/
+        .hamburger-line {
+            transition: all 0.3s ease;
+        }
+        
+        .hamburger.active .hamburger-line:nth-child(1) {
+            transform: rotate(45deg) translate(2px, 2px);
+        }
+        
+        .hamburger.active .hamburger-line:nth-child(2) {
+            opacity: 0;
+        }
+        
+        .hamburger.active .hamburger-line:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -6px);
+        }
+    </style>
 </head>
+
 <body class="font-sans antialiased">
   <div id="root">
     <div>
       <div class="flex flex-col ml-0 transition-all duration-300 flex-1">
-        <nav class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-transparent">
+      
+      <nav class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-transparent">
         <div class="container mx-auto flex justify-between items-center p-4 sm:px-10 w-full max-w-screen-xl">
           <div class="text-lg font-semibold flex items-center">
             <a class="text-gray-800 flex items-center" href="/">
@@ -21,11 +51,11 @@
             </a>
           </div>
 
-          <div class="md:hidden">
-            <button class="focus:outline-none text-gray-800">
-              <svg class="w-6 h-6 text-gray-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M5 7h14M5 12h14M5 17h10"></path>
-              </svg>
+           <div class="md:hidden">
+            <button id="hamburger-btn" class="hamburger focus:outline-none text-gray-800 flex flex-col w-3 h-3 justify-between">
+              <span class="hamburger-line w-6 h-0.5 bg-gray-800 rounded"></span>
+              <span class="hamburger-line w-6 h-0.5 bg-gray-800 rounded"></span>
+              <span class="hamburger-line w-6 h-0.5 bg-gray-800 rounded"></span>
             </button>
           </div>
           <div class="hidden md:flex space-x-6">
@@ -33,13 +63,13 @@
             <a class="text-gray-900 bg-blue-100 hover:bg-blue-300 rounded-lg px-4 py-2 text-sm font-medium" href="/laporan/status">Cek Status Laporan</a>
             <a class="text-gray-900 bg-blue-100 hover:bg-blue-300 rounded-lg px-4 py-2 text-sm font-medium" href="/login">Admin Login</a>
           </div>
-        </div>
-        <div class="hidden md:hidden bg-white shadow-lg rounded-lg mt-4 p-4">
-          <a class="block text-gray-800 hover:bg-gray-200 px-4 py-2 text-sm font-medium rounded-md" href="/laporan/form">Buat Laporan</a>
-          <a class="block text-gray-800 hover:bg-gray-200 px-4 py-2 text-sm font-medium rounded-md mt-2" href="/laporan/status">Cek Status Laporan</a>
-          <a class="block text-gray-800 hover:bg-gray-200 px-4 py-2 text-sm font-medium rounded-md mt-2" href="/login">Admin Login</a>
-        </div>
-      </nav>
+          </div>
+          <div id="mobile-menu" class="mobile-menu md:hidden bg-white shadow-lg rounded-lg mt-1 p-1">
+            <a class="block text-gray-800 hover:bg-gray-200 px-4 py-2 text-sm font-medium rounded-md" href="/laporan/form">Buat Laporan</a>
+            <a class="block text-gray-800 hover:bg-gray-200 px-4 py-2 text-sm font-medium rounded-md mt-2" href="/laporan/status">Cek Status Laporan</a>
+            <a class="block text-gray-800 hover:bg-gray-200 px-4 py-2 text-sm font-medium rounded-md mt-2" href="/login">Admin Login</a>
+          </div>
+        </nav>
     </div>
 
         @yield('content')
@@ -111,6 +141,34 @@
 </div>
 </div>
     @yield('js')
-
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const hamburgerBtn = document.getElementById('hamburger-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            
+            hamburgerBtn.addEventListener('click', function() {
+                mobileMenu.classList.toggle('open');
+                hamburgerBtn.classList.toggle('active');
+            });
+            
+            const mobileLinks = mobileMenu.querySelectorAll('a');
+            mobileLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.remove('open');
+                    hamburgerBtn.classList.remove('active');
+                });
+            });
+            
+            document.addEventListener('click', function(event) {
+                const isClickInsideNav = event.target.closest('nav');
+                const isHamburgerButton = event.target.closest('#hamburger-btn');
+                
+                if (!isClickInsideNav && mobileMenu.classList.contains('open')) {
+                    mobileMenu.classList.remove('open');
+                    hamburgerBtn.classList.remove('active');
+                }
+            });
+        });
+    </script>
 </body>
 </html>
